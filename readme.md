@@ -1,24 +1,44 @@
-to run kafka & zookeeper in container
-docker compose up -d
+
+# 🌤️ Weather Metrics REST Consumer Service
+
+---
+
+- Produces Weather Metric data sensorid, metrics("temperature","humidity"),timestamp
+- Looking for a consumer? https://github.com/Droidverine/SpringBootRestSample  
+---
+
+## 📦 Requirements
+
+- Java 17
+- Maven 3.6+
+- Docker & Docker Compose
+
+---
+
+## 🚀 Setup and Run 🏃
 
 
+### Start Kafka & ZooKeeper 
+```
+sudo docker compose up -d
+```
 
+### Run the app 🏃
+```
+cd Weatherdata
+java -jar target/Weatherdata-0.0.1-SNAPSHOT.jar 
+```
 
-to check topic if there
+### to check topics all the topics on kafka
+```
 sudo docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --list
+```
 
-to check messages in the topic
+### To check topics all the topics on kafka
+```
+sudo docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --list
+```
+### To check messages in the topic
+```
 sudo docker exec -it kafka kafka-console-consumer   --bootstrap-server localhost:9092   --topic weather-metrics   --from-beginning
-
-
-
-want service to start automatically? add following to docker-compose.yml:
-  weather-producer:
-    image: maven:3.8.8-eclipse-temurin-17
-    container_name: weather-producer
-    depends_on:
-      - kafka
-    volumes:
-      - ./weather-servic/Weatherdata:/app
-    working_dir: /app
-    command: /bin/sh -c "mvn clean package && java -jar target/weather-producer-1.0.0.jar"
+```
